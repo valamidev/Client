@@ -35,7 +35,7 @@ function DefaultPage() {
         simulatorContext.simulator_options
       );
 
-      console.log(simulatorContext.simulator_options);
+      console.log("Run backtest result: ", simulatorContext.simulator_options);
 
       simulatorContext.setBacktest({
         candlechart: res.candledata,
@@ -56,15 +56,15 @@ function DefaultPage() {
     <div>
       <div className="ui three column doubling grid">
         <div className="column three wide">
-          Tradepairs: Symbol - Candlesize(in sec)
+          Symbol:
           <DropdownWrap
             field_name="tradepairs_dropdown"
-            change_callback={simulatorContext.selectTradepair}
+            change_callback={simulatorContext.selectSymbol}
             options={simulatorContext.tradepairs.map((elem, index) => {
               return {
                 key: index,
-                value: elem.guid,
-                text: `${elem.symbol} - (${elem.interval_sec})`
+                value: index,
+                text: `${elem.symbol}`
               };
             })}
           />
@@ -75,7 +75,7 @@ function DefaultPage() {
             options={simulatorContext.strategies.map((elem, index) => {
               return {
                 key: index,
-                value: elem.guid,
+                value: index,
                 text: `${elem.name}`
               };
             })}

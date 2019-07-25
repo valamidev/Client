@@ -7,8 +7,12 @@ export const Provider = props => {
   const { children } = props;
 
   // Use State to keep the values
+  // Menu values
+  const [exchange, setExchange] = useState("binance");
   const [tradepairs, setTradepairs] = useState([]);
+  const [interval, setInterval] = useState(900);
   const [strategies, setStrategies] = useState([]);
+
   const [selectedStrategy, setSelectedStrategy] = useState([]);
   const [simulationcount, setSimulationcount] = useState(300);
 
@@ -25,8 +29,8 @@ export const Provider = props => {
 
   const [simulator_options, setSimulator_options] = useState({
     symbol: "BTC/USDT",
-    exchange: "binance",
-    interval: 300,
+    exchange,
+    interval,
     candle_limit: 1000,
     test_count: simulationcount,
     strategy: "cci_william",
@@ -35,16 +39,16 @@ export const Provider = props => {
 
   const [actions, setActions] = useState([]);
 
-  const selectTradepair = (e, invoker) => {
+  // Helper functions
+
+  const selectSymbol = (e, invoker) => {
     let new_simulator_options = simulator_options;
 
     let selected_tradepair = tradepairs.filter(
-      elem => elem.guid === invoker.value
+      (e, index) => index === invoker.value
     )[0];
 
     new_simulator_options.symbol = selected_tradepair.symbol;
-    new_simulator_options.exchange = selected_tradepair.exchange;
-    new_simulator_options.interval = selected_tradepair.interval_sec;
 
     setSimulator_options(new_simulator_options);
   };
@@ -53,7 +57,7 @@ export const Provider = props => {
     let new_simulator_options = simulator_options;
 
     let selected_strategy = strategies.filter(
-      elem => elem.guid === invoker.value
+      (e, index) => index === invoker.value
     )[0];
 
     setSelectedStrategy(selected_strategy);
@@ -111,7 +115,7 @@ export const Provider = props => {
 
     simulator_options,
 
-    selectTradepair,
+    selectSymbol,
     selectStrategy,
     selectCandleLimit,
     selectSimulationCount,
