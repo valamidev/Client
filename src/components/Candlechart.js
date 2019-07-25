@@ -64,7 +64,19 @@ function Candlechart(props) {
     },
     annotations: {
       points
-    }
+    },
+    chart: {
+      animations: {
+        enabled: false,
+        animateGradually: {
+          enabled: false
+        },
+        dynamicAnimation: {
+          enabled: false
+        }
+      }
+    },
+    markers: { size: 0 }
   };
 
   return (

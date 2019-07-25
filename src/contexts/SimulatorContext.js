@@ -24,7 +24,7 @@ export const Provider = props => {
   const [inloading, setInloading] = useState(false);
 
   const [simulator_options, setSimulator_options] = useState({
-    symbol: "ETHBTC",
+    symbol: "BTC/USDT",
     exchange: "binance",
     interval: 300,
     candle_limit: 1000,
