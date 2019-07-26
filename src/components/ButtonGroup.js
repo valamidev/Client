@@ -5,7 +5,7 @@ function GenerateButtons(props) {
   let buttons = props.options.map(elem => {
     let is_primary = false;
 
-    if (elem.interval === props.selected) {
+    if (elem.value === props.selected) {
       is_primary = true;
     }
 
@@ -14,7 +14,7 @@ function GenerateButtons(props) {
         key={elem.name}
         onClick={props.select_callback}
         primary={is_primary}
-        value={elem.interval}
+        value={elem.value}
       >
         {elem.name}
       </Button>

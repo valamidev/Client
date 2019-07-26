@@ -12,6 +12,8 @@ import ButtonGroup from "./ButtonGroup";
 // Components
 // Enums
 import interval_enum from "../Enums/interval_enum";
+import candle_limit_enum from "../Enums/candle_limit_enum";
+import simulation_count_enum from "../Enums/simulation_count_enum";
 // Enums
 
 function DefaultPage() {
@@ -54,119 +56,109 @@ function DefaultPage() {
     }
   }
 
+  const padding = { padding: "0.5rem" };
+
   return (
     <div>
       <div className="ui three column doubling grid">
         <div className="column three wide">
-          <div style={{ padding: "0.5rem" }}>Exchange: Binance</div>
-          <div style={{ padding: "0.5rem" }}>Symbol:</div>
-          <DropdownWrap
-            field_name="tradepairs_dropdown"
-            change_callback={simulatorContext.selectSymbol}
-            options={simulatorContext.tradepairs.map((elem, index) => {
-              return {
-                key: index,
-                value: index,
-                text: `${elem.symbol}`
-              };
-            })}
-          />
-          <div style={{ height: "30px" }}>Timeframe:</div>
-          <div style={{ padding: "0.5rem" }}>
-            <ButtonGroup
-              select_callback={simulatorContext.selectInterval}
-              options={interval_enum}
-              selected={simulatorContext.simulator_options.interval}
-            />
-          </div>
-          Strategies:
-          <DropdownWrap
-            field_name="strategy_dropdown"
-            change_callback={simulatorContext.selectStrategy}
-            options={simulatorContext.strategies.map((elem, index) => {
-              return {
-                key: index,
-                value: index,
-                text: `${elem.name}`
-              };
-            })}
-          />
-          Strategy details:
-          <div>{simulatorContext.selectedStrategy.desc}</div>
-          Candle limit:
-          <DropdownWrap
-            field_name="candle_limit_dropdown"
-            change_callback={simulatorContext.selectCandleLimit}
-            options={[
-              {
-                key: 0,
-                value: 400,
-                text: "400 ~ 1 day"
-              },
-              {
-                key: 1,
-                value: 1000,
-                text: "1000 ~ 3 day"
-              },
-              {
-                key: 2,
-                value: 3000,
-                text: "3000 ~ 10 day"
-              }
-            ]}
-          />
-          Simulation count:
-          <DropdownWrap
-            field_name="candle_limit_dropdown"
-            change_callback={simulatorContext.selectSimulationCount}
-            options={[
-              {
-                key: 0,
-                value: 100,
-                text: "100"
-              },
-              {
-                key: 1,
-                value: 200,
-                text: "200"
-              },
-              {
-                key: 2,
-                value: 300,
-                text: "300"
-              }
-            ]}
-          />
-          Start:
-          <ButtonWrap
-            text="Start optimalization"
-            onClick_callback={runBacktest}
-            loading={simulatorContext.inloading}
-          />
-          Optimalization results:
-          <DropdownWrap
-            field_name="strategy_dropdown"
-            change_callback={simulatorContext.selectBacktest}
-            options={simulatorContext.backtest.test_result.map(
-              (elem, index) => {
+          <div style={padding}>Exchange: Binance</div>
+          <div style={padding}>
+            Symbol:
+            <DropdownWrap
+              field_name="tradepairs_dropdown"
+              change_callback={simulatorContext.selectSymbol}
+              options={simulatorContext.tradepairs.map((elem, index) => {
                 return {
                   key: index,
                   value: index,
-                  text: `Sum: ${_.round(elem.sum_performance, 2)}, Action: ${
-                    elem.num_actions
-                  }`
+                  text: `${elem.symbol}`
                 };
-              }
-            )}
-          />
-          Config:
-          <div>
-            <Form>
-              <TextArea
-                value={JSON.stringify(simulatorContext.selectedBacktest.config)}
-                style={{ minHeight: 100 }}
+              })}
+            />
+          </div>
+          <div style={padding}>
+            Timeframe:
+            <div style={{ padding: "0.5rem" }}>
+              <ButtonGroup
+                select_callback={simulatorContext.selectInterval}
+                options={interval_enum}
+                selected={simulatorContext.simulator_options.interval}
               />
-            </Form>
+            </div>
+          </div>
+          <div style={padding}>
+            Strategies:
+            <DropdownWrap
+              field_name="strategy_dropdown"
+              change_callback={simulatorContext.selectStrategy}
+              options={simulatorContext.strategies.map((elem, index) => {
+                return {
+                  key: index,
+                  value: index,
+                  text: `${elem.name}`
+                };
+              })}
+            />
+          </div>
+          <div style={padding}>
+            Strategy details:
+            <div>{simulatorContext.selectedStrategy.desc}</div>
+          </div>
+          <div style={padding}>
+            Candle limit:
+            <ButtonGroup
+              select_callback={simulatorContext.selectCandleLimit}
+              options={candle_limit_enum}
+              selected={simulatorContext.simulator_options.candle_limit}
+            />
+          </div>
+          <div style={padding}>
+            Simulation count:
+            <ButtonGroup
+              select_callback={simulatorContext.selectSimulationCount}
+              options={simulation_count_enum}
+              selected={simulatorContext.simulationcount}
+            />
+          </div>
+          <div style={padding}>
+            Start:
+            <ButtonWrap
+              text="Start optimalization"
+              onClick_callback={runBacktest}
+              loading={simulatorContext.inloading}
+            />
+          </div>
+          <div style={padding}>
+            Optimalization results:
+            <DropdownWrap
+              field_name="strategy_dropdown"
+              change_callback={simulatorContext.selectBacktest}
+              options={simulatorContext.backtest.test_result.map(
+                (elem, index) => {
+                  return {
+                    key: index,
+                    value: index,
+                    text: `Sum: ${_.round(elem.sum_performance, 2)}, Action: ${
+                      elem.num_actions
+                    }`
+                  };
+                }
+              )}
+            />
+          </div>
+          <div style={padding}>
+            Config:
+            <div>
+              <Form>
+                <TextArea
+                  value={JSON.stringify(
+                    simulatorContext.selectedBacktest.config
+                  )}
+                  style={{ minHeight: 100 }}
+                />
+              </Form>
+            </div>
           </div>
         </div>
         <div className="column nine wide">
@@ -179,8 +171,10 @@ function DefaultPage() {
       </div>
       <div className="ui">
         <div className="column ten wide">
-          Tradelogs:
-          <Tradelog trade_data={simulatorContext.selectedBacktest} />
+          <div style={padding}>
+            Tradelogs:
+            <Tradelog trade_data={simulatorContext.selectedBacktest} />
+          </div>
         </div>
       </div>
     </div>

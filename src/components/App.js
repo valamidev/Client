@@ -19,15 +19,11 @@ function App() {
           <Grid divided inverted stackable>
             <Grid.Row>
               <Grid.Column width={3}>
-                <Header inverted as="h4" content="About" />
+                <Header inverted as="h4" content="Github" />
                 <List link inverted>
-                  <List.Item as="a">Soon!</List.Item>
-                </List>
-              </Grid.Column>
-              <Grid.Column width={3}>
-                <Header inverted as="h4" content="Services" />
-                <List link inverted>
-                  <List.Item as="a">Soon!</List.Item>
+                  <List.Item as="a" href="https://github.com/stockmlbot">
+                    StockMLBoT
+                  </List.Item>
                 </List>
               </Grid.Column>
               <Grid.Column width={7}>

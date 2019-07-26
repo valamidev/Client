@@ -1,9 +1,5 @@
 import React, { createContext, useState } from "react";
 
-// Enums
-import interval_enum from "../Enums/interval_enum";
-// Enums
-
 export const Context = createContext({});
 
 export const Provider = props => {
@@ -16,9 +12,10 @@ export const Provider = props => {
   const [tradepairs, setTradepairs] = useState([]);
   const [interval, setInterval] = useState(900);
   const [strategies, setStrategies] = useState([]);
+  const [candle_limit, setCandle_limit] = useState(1000);
 
-  const [selectedStrategy, setSelectedStrategy] = useState([]);
-  const [simulationcount, setSimulationcount] = useState(300);
+  const [selectedStrategy, setSelectedStrategy] = useState(0);
+  const [simulationcount, setSimulationcount] = useState(100);
 
   const [candlechart, setCandlechart] = useState([]);
   const [backtestresult, setBacktestresult] = useState([]);
@@ -60,13 +57,9 @@ export const Provider = props => {
   const selectInterval = (e, invoker) => {
     let new_simulator_options = simulator_options;
 
-    let selected_interval = interval_enum.filter(
-      e => e.interval === invoker.value
-    )[0];
+    setInterval(invoker.value);
 
-    setInterval(selected_interval.interval);
-
-    new_simulator_options.interval = selected_interval.interval;
+    new_simulator_options.interval = invoker.value;
 
     setSimulator_options(new_simulator_options);
   };
@@ -88,6 +81,8 @@ export const Provider = props => {
 
   const selectCandleLimit = (e, invoker) => {
     let new_simulator_options = simulator_options;
+
+    setCandle_limit(invoker.value);
 
     new_simulator_options.candle_limit = invoker.value;
 
