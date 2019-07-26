@@ -1,5 +1,9 @@
 import React, { createContext, useState } from "react";
 
+// Enums
+import interval_enum from "../Enums/interval_enum";
+// Enums
+
 export const Context = createContext({});
 
 export const Provider = props => {
@@ -49,6 +53,20 @@ export const Provider = props => {
     )[0];
 
     new_simulator_options.symbol = selected_tradepair.symbol;
+
+    setSimulator_options(new_simulator_options);
+  };
+
+  const selectInterval = (e, invoker) => {
+    let new_simulator_options = simulator_options;
+
+    let selected_interval = interval_enum.filter(
+      e => e.interval === invoker.value
+    )[0];
+
+    setInterval(selected_interval.interval);
+
+    new_simulator_options.interval = selected_interval.interval;
 
     setSimulator_options(new_simulator_options);
   };
@@ -116,6 +134,7 @@ export const Provider = props => {
     simulator_options,
 
     selectSymbol,
+    selectInterval,
     selectStrategy,
     selectCandleLimit,
     selectSimulationCount,

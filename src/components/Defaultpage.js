@@ -1,16 +1,18 @@
 import React, { useContext, useEffect } from "react";
+import { Form, TextArea } from "semantic-ui-react";
 import _ from "lodash";
+import StockAPI from "../stockml_api";
+import { SimulatorContext } from "../contexts";
+// Components
 import DropdownWrap from "./Dropdown";
 import ButtonWrap from "./Button";
-import { Form, TextArea } from "semantic-ui-react";
 import Candlechart from "./Candlechart";
 import Tradelog from "./Tradelog";
-
-import StockAPI from "../stockml_api";
-
-import { SimulatorContext } from "../contexts";
-
-//   <Dropdown field_name="tradepairs" options />
+import ButtonGroup from "./ButtonGroup";
+// Components
+// Enums
+import interval_enum from "../Enums/interval_enum";
+// Enums
 
 function DefaultPage() {
   const simulatorContext = useContext(SimulatorContext);
@@ -56,7 +58,8 @@ function DefaultPage() {
     <div>
       <div className="ui three column doubling grid">
         <div className="column three wide">
-          Symbol:
+          <div style={{ padding: "0.5rem" }}>Exchange: Binance</div>
+          <div style={{ padding: "0.5rem" }}>Symbol:</div>
           <DropdownWrap
             field_name="tradepairs_dropdown"
             change_callback={simulatorContext.selectSymbol}
@@ -68,6 +71,14 @@ function DefaultPage() {
               };
             })}
           />
+          <div style={{ height: "30px" }}>Timeframe:</div>
+          <div style={{ padding: "0.5rem" }}>
+            <ButtonGroup
+              select_callback={simulatorContext.selectInterval}
+              options={interval_enum}
+              selected={simulatorContext.simulator_options.interval}
+            />
+          </div>
           Strategies:
           <DropdownWrap
             field_name="strategy_dropdown"
