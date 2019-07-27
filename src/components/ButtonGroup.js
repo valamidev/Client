@@ -11,6 +11,7 @@ function GenerateButtons(props) {
 
     return (
       <Button
+        style={{ minWidth: "23%" }}
         key={elem.name}
         onClick={props.select_callback}
         primary={is_primary}
