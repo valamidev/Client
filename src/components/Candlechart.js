@@ -43,8 +43,13 @@ function Candlechart(props) {
 
     series[0].data = props.series_data.map(elem => {
       return {
-        x: new Date(elem.time),
-        y: [elem.open, elem.high, elem.low, elem.close]
+        x: new Date(Number(elem.time)),
+        y: [
+          Number(elem.open),
+          Number(elem.high),
+          Number(elem.low),
+          Number(elem.close)
+        ]
       };
     });
   }
@@ -75,8 +80,7 @@ function Candlechart(props) {
           enabled: false
         }
       }
-    },
-    markers: { size: 0 }
+    }
   };
 
   return (
