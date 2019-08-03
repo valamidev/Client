@@ -14,7 +14,11 @@ const value_enum = [
   { name: "1D", value: 86400 },
   { name: "2D", value: 86400 * 2 },
   { name: "3D", value: 86400 * 3 },
-  { name: "1W", value: 86400 * 7 }
+  { name: "1W", value: 86400 * 7 },
+  { name: "16T", value: 16 },
+  { name: "64T", value: 64 },
+  { name: "256T", value: 256 },
+  { name: "512T", value: 512 }
 ];
 
 export default value_enum;

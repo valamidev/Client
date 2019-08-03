@@ -11,6 +11,7 @@ import Tradelog from "./Tradelog";
 import ButtonGroup from "./ButtonGroup";
 // Components
 // Enums
+import exchanges_enum from "../Enums/exchanges_enum";
 import interval_enum from "../Enums/interval_enum";
 import candle_limit_enum from "../Enums/candle_limit_enum";
 import simulation_count_enum from "../Enums/simulation_count_enum";
@@ -26,6 +27,7 @@ function DefaultPage() {
 
       simulatorContext.setTradepairs(tradepairs_result);
       simulatorContext.setStrategies(strategies_result);
+      simulatorContext.updateTradepairs();
     }
 
     update_data();
@@ -38,8 +40,6 @@ function DefaultPage() {
       let res = await StockAPI.run_massbacktest(
         simulatorContext.simulator_options
       );
-
-      console.log("Run backtest result: ", simulatorContext.simulator_options);
 
       simulatorContext.setBacktest({
         candlechart: res.candledata,
@@ -62,23 +62,32 @@ function DefaultPage() {
     <div>
       <div className="ui three column doubling grid">
         <div className="column three wide">
-          <div style={padding}>Exchange: Binance</div>
+          <div style={padding}>
+            Exchanges:
+            <ButtonGroup
+              select_callback={simulatorContext.selectExchange}
+              options={exchanges_enum}
+              selected={simulatorContext.exchange}
+            />
+          </div>
           <div style={padding}>
             Symbol:
             <DropdownWrap
               field_name="tradepairs_dropdown"
               change_callback={simulatorContext.selectSymbol}
-              options={simulatorContext.tradepairs.map((elem, index) => {
-                return {
-                  key: index,
-                  value: index,
-                  text: `${elem.symbol}`
-                };
-              })}
+              options={simulatorContext.filteredTradepairs.map(
+                (elem, index) => {
+                  return {
+                    key: index,
+                    value: index,
+                    text: `${elem.symbol}`
+                  };
+                }
+              )}
             />
           </div>
           <div style={padding}>
-            Timeframe:
+            Time/Tich chart types:
             <div style={{ padding: "0.5rem" }}>
               <ButtonGroup
                 select_callback={simulatorContext.selectInterval}

@@ -8,8 +8,11 @@ export const Provider = props => {
 
   // Use State to keep the values
   // Menu values
-  const [exchange, setExchange] = useState("binance");
+  const [exchange, setExchange] = useState("");
   const [tradepairs, setTradepairs] = useState([]);
+
+  const [filteredTradepairs, setFilteredTradepairs] = useState([]);
+
   const [interval, setInterval] = useState(900);
   const [strategies, setStrategies] = useState([]);
   const [candle_limit, setCandle_limit] = useState(1000);
@@ -42,10 +45,25 @@ export const Provider = props => {
 
   // Helper functions
 
+  const selectExchange = (e, invoker) => {
+    let new_simulator_options = simulator_options;
+
+    setExchange(invoker.value);
+    setFilteredTradepairs(tradepairs.filter(e => e.exchange === invoker.value));
+
+    new_simulator_options.exchange = invoker.value;
+
+    setSimulator_options(new_simulator_options);
+  };
+
+  const updateTradepairs = () => {
+    setFilteredTradepairs(tradepairs.filter(e => e.exchange === exchange));
+  };
+
   const selectSymbol = (e, invoker) => {
     let new_simulator_options = simulator_options;
 
-    let selected_tradepair = tradepairs.filter(
+    let selected_tradepair = filteredTradepairs.filter(
       (e, index) => index === invoker.value
     )[0];
 
@@ -104,6 +122,9 @@ export const Provider = props => {
 
   // Make the context object:
   const usersContext = {
+    exchange,
+    filteredTradepairs,
+    setFilteredTradepairs,
     tradepairs,
     setTradepairs,
     strategies,
@@ -126,8 +147,11 @@ export const Provider = props => {
     actions,
     setActions,
 
+    updateTradepairs,
+
     simulator_options,
 
+    selectExchange,
     selectSymbol,
     selectInterval,
     selectStrategy,
