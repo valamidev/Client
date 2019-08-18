@@ -11,7 +11,7 @@ function Candlechart(props) {
     if (typeof props.trade_data.actions != "undefined") {
       points = props.trade_data.actions[0].map(elem => {
         let color = "#c91717";
-        if (elem.action === "BUY") {
+        if (elem.price < elem.sold) {
           color = "#0b9f00";
         }
 
@@ -32,10 +32,7 @@ function Candlechart(props) {
               background: color
             },
 
-            text: `${elem.action} - ${elem.price} - SUM: ${_.round(
-              elem.quote_balance,
-              2
-            )}`
+            text: `${elem.price} - SUM: ${_.round(elem.balance, 2)}`
           }
         };
       });

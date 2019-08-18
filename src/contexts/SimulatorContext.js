@@ -13,7 +13,6 @@ export const Provider = props => {
 
   const [filteredTradepairs, setFilteredTradepairs] = useState([]);
 
-  const [interval, setInterval] = useState(900);
   const [strategies, setStrategies] = useState([]);
   const [candle_limit, setCandle_limit] = useState(1000);
 
@@ -34,10 +33,9 @@ export const Provider = props => {
   const [simulator_options, setSimulator_options] = useState({
     symbol: "BTC/USDT",
     exchange,
-    interval,
     candle_limit: 1000,
     test_count: simulationcount,
-    strategy: "cci_william",
+    strategy: "bb_pure",
     config: {}
   });
 
@@ -68,16 +66,6 @@ export const Provider = props => {
     )[0];
 
     new_simulator_options.symbol = selected_tradepair.symbol;
-
-    setSimulator_options(new_simulator_options);
-  };
-
-  const selectInterval = (e, invoker) => {
-    let new_simulator_options = simulator_options;
-
-    setInterval(invoker.value);
-
-    new_simulator_options.interval = invoker.value;
 
     setSimulator_options(new_simulator_options);
   };
@@ -153,7 +141,6 @@ export const Provider = props => {
 
     selectExchange,
     selectSymbol,
-    selectInterval,
     selectStrategy,
     selectCandleLimit,
     selectSimulationCount,

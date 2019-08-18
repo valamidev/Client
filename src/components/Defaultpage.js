@@ -12,7 +12,6 @@ import ButtonGroup from "./ButtonGroup";
 // Components
 // Enums
 import exchanges_enum from "../Enums/exchanges_enum";
-import interval_enum from "../Enums/interval_enum";
 import candle_limit_enum from "../Enums/candle_limit_enum";
 import simulation_count_enum from "../Enums/simulation_count_enum";
 // Enums
@@ -85,16 +84,6 @@ function DefaultPage() {
                 }
               )}
             />
-          </div>
-          <div style={padding}>
-            Time/Tich chart types:
-            <div style={{ padding: "0.5rem" }}>
-              <ButtonGroup
-                select_callback={simulatorContext.selectInterval}
-                options={interval_enum}
-                selected={simulatorContext.simulator_options.interval}
-              />
-            </div>
           </div>
           <div style={padding}>
             Strategies:
@@ -177,11 +166,25 @@ function DefaultPage() {
             trade_data={simulatorContext.selectedBacktest}
           />
         </div>
+        <div className="column two wide">
+          <div style={padding}>
+            <p>Changelog:</p>
+            <p>
+              - New strategy framework implemented, there is no need to select
+              your Candle intervals anymore strategies now could use different
+              time scales by default.
+            </p>
+            <p>
+              - Backtest orders are now simulated with Trailing and Stop-loss by
+              default.
+            </p>
+          </div>
+        </div>
       </div>
       <div className="ui">
         <div className="column ten wide">
           <div style={padding}>
-            Tradelogs:
+            Orderlogs:
             <Tradelog trade_data={simulatorContext.selectedBacktest} />
           </div>
         </div>

@@ -6,25 +6,24 @@ function GenerateTable(props) {
   if (typeof props.trade_info.actions != "undefined") {
     return _.reverse(
       props.trade_info.actions[0].map((elem, index) => {
-        if (elem.action === "BUY") {
-          return (
-            <Table.Row positive key={index}>
-              <Table.Cell>{elem.action}</Table.Cell>
-              <Table.Cell>{new Date(elem.time).toUTCString()}</Table.Cell>
-              <Table.Cell>{elem.price}</Table.Cell>
-              <Table.Cell>{elem.quote_balance}</Table.Cell>
-            </Table.Row>
-          );
-        } else {
-          return (
-            <Table.Row negative key={index}>
-              <Table.Cell>{elem.action}</Table.Cell>
-              <Table.Cell>{new Date(elem.time).toUTCString()}</Table.Cell>
-              <Table.Cell>{elem.price}</Table.Cell>
-              <Table.Cell>{elem.quote_balance}</Table.Cell>
-            </Table.Row>
-          );
+        console.log(elem);
+
+        let positive = true;
+        let negative = false;
+
+        if (elem.price > elem.sold) {
+          negative = true;
         }
+
+        return (
+          <Table.Row positive={positive} negative={negative} key={index}>
+            <Table.Cell>{new Date(elem.time).toUTCString()}</Table.Cell>
+            <Table.Cell>{_.round(elem.quantity, 6)}</Table.Cell>
+            <Table.Cell>{elem.price}</Table.Cell>
+            <Table.Cell>{elem.sold}</Table.Cell>
+            <Table.Cell>{elem.balance}</Table.Cell>
+          </Table.Row>
+        );
       })
     );
   }
@@ -40,9 +39,10 @@ function Tradelog(props) {
     <Table celled>
       <Table.Header>
         <Table.Row>
-          <Table.HeaderCell>Action</Table.HeaderCell>
           <Table.HeaderCell>Time</Table.HeaderCell>
-          <Table.HeaderCell>Price</Table.HeaderCell>
+          <Table.HeaderCell>Order size</Table.HeaderCell>
+          <Table.HeaderCell>Buy</Table.HeaderCell>
+          <Table.HeaderCell>Sell</Table.HeaderCell>
           <Table.HeaderCell>Balance</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
