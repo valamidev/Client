@@ -104,14 +104,6 @@ function DefaultPage() {
             <div>{simulatorContext.selectedStrategy.desc}</div>
           </div>
           <div style={padding}>
-            Candle limit:
-            <ButtonGroup
-              select_callback={simulatorContext.selectCandleLimit}
-              options={candle_limit_enum}
-              selected={simulatorContext.simulator_options.candle_limit}
-            />
-          </div>
-          <div style={padding}>
             Simulation count:
             <ButtonGroup
               select_callback={simulatorContext.selectSimulationCount}
@@ -169,6 +161,9 @@ function DefaultPage() {
         <div className="column two wide">
           <div style={padding}>
             <p>Changelog:</p>
+            <p>
+              - Client rework more verbose Actionlog and Chart visualization.
+            </p>
             <p>
               - New strategy framework implemented, there is no need to select
               your Candle intervals anymore strategies now could use different

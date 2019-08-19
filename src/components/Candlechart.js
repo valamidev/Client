@@ -9,7 +9,7 @@ function Candlechart(props) {
 
   if (props.loading === false) {
     if (typeof props.trade_data.actions != "undefined") {
-      points = props.trade_data.actions[0].map(elem => {
+      points = props.trade_data.actions[0].map((elem, index) => {
         let color = "#c91717";
         if (elem.price < elem.sold) {
           color = "#0b9f00";
@@ -32,9 +32,44 @@ function Candlechart(props) {
               background: color
             },
 
-            text: `${elem.price} - SUM: ${_.round(elem.balance, 2)}`
+            text: `Buy(${index}): ${elem.price}`
           }
         };
+      });
+
+      props.trade_data.actions[0].forEach((elem, index) => {
+        let color = "#c91717";
+        if (elem.price < elem.sold) {
+          color = "#0b9f00";
+        }
+
+        if (elem.closed === 0) {
+          return;
+        }
+
+        points.push({
+          x: elem.closed,
+          y: elem.sold,
+          marker: {
+            size: 3,
+            fillColor: "#2698FF",
+            strokeColor: "#2698FF",
+            radius: 2
+          },
+          label: {
+            borderColor: color,
+            offsetY: 0,
+            style: {
+              color: "#fff",
+              background: color
+            },
+
+            text: `${elem.close_type}(${index}): ${elem.sold} SUM: ${_.round(
+              elem.balance,
+              2
+            )}`
+          }
+        });
       });
     }
 
