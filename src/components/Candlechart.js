@@ -8,8 +8,8 @@ function Candlechart(props) {
   series[0] = { data: [] };
 
   if (props.loading === false) {
-    if (typeof props.trade_data.actions != "undefined") {
-      points = props.trade_data.actions[0].map((elem, index) => {
+    if (typeof props.trade_data.historyOrders != "undefined") {
+      points = props.trade_data.historyOrders.map((elem, index) => {
         let color = "#c91717";
         if (elem.price < elem.sold) {
           color = "#0b9f00";
@@ -37,7 +37,7 @@ function Candlechart(props) {
         };
       });
 
-      props.trade_data.actions[0].forEach((elem, index) => {
+      props.trade_data.historyOrders.forEach((elem, index) => {
         let color = "#c91717";
         if (elem.price < elem.sold) {
           color = "#0b9f00";

@@ -12,7 +12,6 @@ import ButtonGroup from "./ButtonGroup";
 // Components
 // Enums
 import exchanges_enum from "../Enums/exchanges_enum";
-import candle_limit_enum from "../Enums/candle_limit_enum";
 import simulation_count_enum from "../Enums/simulation_count_enum";
 // Enums
 
@@ -30,6 +29,7 @@ function DefaultPage() {
     }
 
     update_data();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function runBacktest() {
@@ -129,8 +129,8 @@ function DefaultPage() {
                   return {
                     key: index,
                     value: index,
-                    text: `Sum: ${_.round(elem.sum_performance, 2)}, Action: ${
-                      elem.num_actions
+                    text: `Sum: ${_.round(elem.performance, 2)}, Action: ${
+                      elem.historyOrders.length
                     }`
                   };
                 }

@@ -28,7 +28,7 @@ function App() {
               </Grid.Column>
               <Grid.Column width={7}>
                 <Header as="h4" inverted>
-                  Eztcsekk 2019 made with React,NodeJS,Tensorflow and {"❤️"}!
+                  2020 made with React,NodeJS,Tensorflow and {"❤️"}!
                 </Header>
               </Grid.Column>
             </Grid.Row>

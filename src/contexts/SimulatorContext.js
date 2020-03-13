@@ -33,8 +33,8 @@ export const Provider = props => {
   const [simulator_options, setSimulator_options] = useState({
     symbol: "BTC/USDT",
     exchange,
-    candle_limit: 1000,
-    test_count: simulationcount,
+    candle_limit: candle_limit || 1000,
+    numberOfExecution: simulationcount,
     strategy: "bb_pure",
     config: {}
   });
@@ -98,7 +98,7 @@ export const Provider = props => {
   const selectSimulationCount = (e, invoker) => {
     let new_simulator_options = simulator_options;
 
-    new_simulator_options.test_count = invoker.value;
+    new_simulator_options.numberOfExecution = invoker.value;
 
     setSimulationcount(invoker.value);
     setSimulator_options(new_simulator_options);

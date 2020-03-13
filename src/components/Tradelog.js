@@ -3,11 +3,9 @@ import _ from "lodash";
 import { Table } from "semantic-ui-react";
 
 function GenerateTable(props) {
-  if (typeof props.trade_info.actions != "undefined") {
+  if (typeof props.trade_info.historyOrders != "undefined") {
     return _.reverse(
-      props.trade_info.actions[0].map((elem, index) => {
-        console.log(elem);
-
+      props.trade_info.historyOrders.map((elem, index) => {
         let positive = true;
         let negative = false;
 
