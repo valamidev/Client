@@ -12,7 +12,6 @@ import ButtonGroup from "./ButtonGroup";
 // Components
 // Enums
 import exchanges_enum from "../Enums/exchanges_enum";
-import simulation_count_enum from "../Enums/simulation_count_enum";
 // Enums
 
 function DefaultPage() {
@@ -59,8 +58,8 @@ function DefaultPage() {
 
   return (
     <div>
-      <div className="ui three column doubling grid">
-        <div className="column three wide">
+      <div className="ui grid ">
+        <div className="eight wide tablet four wide computer column">
           <div style={padding}>
             Exchanges:
             <ButtonGroup
@@ -100,27 +99,7 @@ function DefaultPage() {
             />
           </div>
           <div style={padding}>
-            Strategy details:
-            <div>{simulatorContext.selectedStrategy.desc}</div>
-          </div>
-          <div style={padding}>
-            Simulation count:
-            <ButtonGroup
-              select_callback={simulatorContext.selectSimulationCount}
-              options={simulation_count_enum}
-              selected={simulatorContext.simulationcount}
-            />
-          </div>
-          <div style={padding}>
-            Start:
-            <ButtonWrap
-              text="Start optimalization"
-              onClick_callback={runBacktest}
-              loading={simulatorContext.inloading}
-            />
-          </div>
-          <div style={padding}>
-            Optimalization results:
+            Optimization results:
             <DropdownWrap
               field_name="strategy_dropdown"
               change_callback={simulatorContext.selectBacktest}
@@ -138,7 +117,6 @@ function DefaultPage() {
             />
           </div>
           <div style={padding}>
-            Config:
             <div>
               <Form>
                 <TextArea
@@ -150,19 +128,27 @@ function DefaultPage() {
               </Form>
             </div>
           </div>
+          <div style={padding}>
+            <ButtonWrap
+              text="Start optimalization"
+              onClick_callback={runBacktest}
+              loading={simulatorContext.inloading}
+            />
+          </div>
         </div>
-        <div className="column nine wide">
+        <div className="sixteen wide tablet ten wide computer column">
           <Candlechart
             loading={simulatorContext.inloading}
             series_data={simulatorContext.backtest.candlechart}
             trade_data={simulatorContext.selectedBacktest}
           />
         </div>
-        <div className="column two wide">
+        <div className="computer only two wide computer column">
           <div style={padding}>
-            <p>Changelog:</p>
+            <p class="ui header">Changelog:</p>
+            <p>- Optimizer rewritten in Typescript</p>
             <p>
-              - Client rework more verbose Actionlog and Chart visualization.
+              - Client rework more verbose Order Logs and Chart visualization.
             </p>
             <p>
               - New strategy framework implemented, there is no need to select
@@ -170,8 +156,8 @@ function DefaultPage() {
               time scales by default.
             </p>
             <p>
-              - Backtest orders are now simulated with Trailing and Stop-loss by
-              default.
+              - Backtest orders are now simulated with Trailing Stop and
+              Stop-loss by default.
             </p>
           </div>
         </div>
@@ -179,7 +165,7 @@ function DefaultPage() {
       <div className="ui">
         <div className="column ten wide">
           <div style={padding}>
-            Orderlogs:
+            Order logs:
             <Tradelog trade_data={simulatorContext.selectedBacktest} />
           </div>
         </div>

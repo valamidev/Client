@@ -64,7 +64,7 @@ function Candlechart(props) {
               background: color
             },
 
-            text: `${elem.close_type}(${index}): ${elem.sold} SUM: ${_.round(
+            text: `(${index}): ${elem.sold} Balance: ${_.round(
               elem.balance,
               2
             )}`

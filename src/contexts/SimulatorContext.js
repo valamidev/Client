@@ -17,7 +17,6 @@ export const Provider = props => {
   const [candle_limit, setCandle_limit] = useState(1000);
 
   const [selectedStrategy, setSelectedStrategy] = useState(0);
-  const [simulationcount, setSimulationcount] = useState(100);
 
   const [candlechart, setCandlechart] = useState([]);
   const [backtestresult, setBacktestresult] = useState([]);
@@ -34,7 +33,7 @@ export const Provider = props => {
     symbol: "BTC/USDT",
     exchange,
     candle_limit: candle_limit || 1000,
-    numberOfExecution: simulationcount,
+    numberOfExecution: 100,
     strategy: "bb_pure",
     config: {}
   });
@@ -95,15 +94,6 @@ export const Provider = props => {
     setSimulator_options(new_simulator_options);
   };
 
-  const selectSimulationCount = (e, invoker) => {
-    let new_simulator_options = simulator_options;
-
-    new_simulator_options.numberOfExecution = invoker.value;
-
-    setSimulationcount(invoker.value);
-    setSimulator_options(new_simulator_options);
-  };
-
   const selectBacktest = (e, invoker) => {
     setSelectedBacktest(backtest.test_result[invoker.value]);
   };
@@ -127,7 +117,6 @@ export const Provider = props => {
     backtest,
     setBacktest,
 
-    simulationcount,
     selectedStrategy,
 
     candlechart,
@@ -143,7 +132,7 @@ export const Provider = props => {
     selectSymbol,
     selectStrategy,
     selectCandleLimit,
-    selectSimulationCount,
+
     selectBacktest
   };
 
