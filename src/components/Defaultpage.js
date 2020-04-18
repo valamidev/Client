@@ -35,20 +35,25 @@ function DefaultPage() {
     try {
       simulatorContext.setInloading(true);
 
-      let res = await StockAPI.run_massbacktest(
+      let res = await StockAPI.run_optimize(
         simulatorContext.simulator_options
       );
 
+
+
+
       simulatorContext.setBacktest({
         candlechart: res.candledata,
-        test_result: res.test_results
+        testResults: res.testResults
       });
 
-      simulatorContext.setSelectedBacktest(res.test_results[0]);
+
+
+      simulatorContext.setSelectedBacktest(res.testResults[0]);
 
       simulatorContext.setInloading(false);
 
-      //console.log("API backtest result: ", res);
+  
     } catch (e) {
       console.log("API backtest error", e);
     }
@@ -103,7 +108,7 @@ function DefaultPage() {
             <DropdownWrap
               field_name="strategy_dropdown"
               change_callback={simulatorContext.selectBacktest}
-              options={simulatorContext.backtest.test_result.map(
+              options={simulatorContext.backtest.testResults.map(
                 (elem, index) => {
                   return {
                     key: index,

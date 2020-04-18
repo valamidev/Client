@@ -23,7 +23,7 @@ export const Provider = props => {
 
   const [backtest, setBacktest] = useState({
     candlechart: [],
-    test_result: []
+    testResults: []
   });
 
   const [selectedBacktest, setSelectedBacktest] = useState([]);
@@ -95,7 +95,7 @@ export const Provider = props => {
   };
 
   const selectBacktest = (e, invoker) => {
-    setSelectedBacktest(backtest.test_result[invoker.value]);
+    setSelectedBacktest(backtest.testResults[invoker.value]);
   };
 
   // Make the context object:
